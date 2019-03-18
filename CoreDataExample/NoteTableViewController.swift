@@ -41,11 +41,28 @@ class NoteTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let btnEdit = UIContextualAction(style: .normal, title: "Edit") { (action, view, handler) in
-            
+            let entryCtrl = self.storyboard?.instantiateViewController(withIdentifier: "entry") as! EntryViewController
+            entryCtrl.index = indexPath.row
+            entryCtrl.isEditMode = true
+            self.present(entryCtrl, animated: true, completion: nil)
+            handler(true)
         }
         btnEdit.backgroundColor = UIColor.blue
         let btnDelete = UIContextualAction(style: .normal, title: "Delete") { (action, view, handler) in
-            
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Entry")
+            if let results = try? context.fetch(request){
+                context.delete(results[indexPath.row] as! NSManagedObject)
+                do {
+                    try context.save()
+                    self.entries.remove(at: indexPath.row)
+                    self.tableView.reloadData()
+                    handler(true)
+                } catch {
+                    print("Error while saving!")
+                    handler(false)
+                }
+            }
         }
         btnDelete.backgroundColor = UIColor.green
         return UISwipeActionsConfiguration(actions: [btnEdit, btnDelete])

@@ -66,7 +66,7 @@
         <!--Entry View Controller-->
         <scene sceneID="EPz-B3-gId">
             <objects>
-                <viewController id="5Sh-hV-ept" customClass="EntryViewController" customModule="CoreDataExample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="entry" id="5Sh-hV-ept" customClass="EntryViewController" customModule="CoreDataExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fQH-wD-cAn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -121,6 +121,8 @@
                         <viewLayoutGuide key="safeArea" id="v3P-5l-nRk"/>
                     </view>
                     <connections>
+                        <outlet property="btnButton" destination="vin-UZ-j3c" id="JPT-QX-T2s"/>
+                        <outlet property="lblTitle" destination="igK-uK-pzg" id="JDZ-eD-HsW"/>
                         <outlet property="txvEntry" destination="oYb-h8-HPO" id="U1B-lD-117"/>
                     </connections>
                 </viewController>
